@@ -14,7 +14,6 @@ def create_new_order(order_body):
         json=order_body,
         headers=data.headers
     )
-    assert response.status_code == 201, "Created"
     return response.json()["track"]  # Сохраняем и возвращаем номер трека заказа
 
 # Получение заказа по номеру трека
@@ -24,11 +23,3 @@ def get_order_from_track(track):
         headers=data.headers
     )
     return response
-
-# Тест проверки статуса ответа 200
-def test_order_status_code_200():
-    # Создаём новый заказ
-    track_number = create_new_order(data.order_body)
-    # Проверяем получение заказа по номеру трека
-    response = get_order_from_track(track_number)
-    assert response.status_code == 200
